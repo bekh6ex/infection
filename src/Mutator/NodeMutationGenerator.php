@@ -102,11 +102,7 @@ class NodeMutationGenerator
         $this->isOnFunctionSignatureMemoized = null;
         $this->isInsideFunctionMemoized = null;
 
-        if (!$this->isOnFunctionSignature()
-            && !$this->isInsideFunction()
-        ) {
-            return;
-        }
+
 
         /** @psalm-suppress InvalidArgument */
         if (!$this->sourceLineMatcher->touches($this->filePath, $node->getStartLine(), $node->getEndLine())) {
