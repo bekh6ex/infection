@@ -103,11 +103,6 @@ final class ReflectionVisitor extends NodeVisitorAbstract
             $this->classScopeStack[] = $this->getClassReflectionForNode($node);
         }
 
-        // No need to traverse outside of classes
-        if (count($this->classScopeStack) === 0) {
-            return null;
-        }
-
         if ($node instanceof Node\Stmt\ClassMethod) {
             $this->methodName = $node->name->name;
         }
@@ -226,11 +221,7 @@ final class ReflectionVisitor extends NodeVisitorAbstract
 
     private function isFunctionLikeNode(Node $node): bool
     {
-        if ($node instanceof Node\Stmt\ClassMethod) {
-            return true;
-        }
-
-        return $node instanceof Node\Expr\Closure;
+        return $node instanceof Node\FunctionLike;
     }
 
     private function getClassReflectionForNode(Node\Stmt\ClassLike $node): ClassReflection
